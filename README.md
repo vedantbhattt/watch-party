@@ -1,6 +1,10 @@
 # Watch Party
 
 <p align="center">
+  <img src="./public/watch-party-banner.svg" alt="Watch Party — Watch together. Stay in sync." width="100%" />
+</p>
+
+<p align="center">
   <strong>Watch together. Stay in sync.</strong><br />
   A real-time watch-party web app with shared playback, live chat, reactions, playlists, polls, and room invites.
 </p>
@@ -10,7 +14,6 @@
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" />
   <img alt="Next.js" src="https://img.shields.io/badge/Next.js-16-000000?logo=next.js&logoColor=white" />
   <img alt="Socket.IO" src="https://img.shields.io/badge/Realtime-Socket.IO-010101?logo=socketdotio&logoColor=white" />
-  <img alt="License" src="https://img.shields.io/badge/License-Not%20specified-lightgrey" />
 </p>
 
 ---
