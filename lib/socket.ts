@@ -14,7 +14,10 @@ function newClientId() {
 
 export function getSocket() {
   if (!socket) {
-    socket = io({
+    // In production, point the browser at the separately hosted Socket.IO server.
+    // Locally, the empty URL keeps the existing same-origin development setup.
+    const serverUrl = process.env.NEXT_PUBLIC_SOCKET_URL?.trim();
+    socket = io(serverUrl || undefined, {
       autoConnect: false,
       reconnection: true,
       reconnectionAttempts: Infinity,
