@@ -14,10 +14,17 @@ function newClientId() {
 
 export function getSocket() {
   if (!socket) {
-    // In production, point the browser at the separately hosted Socket.IO server.
-    // Locally, the empty URL keeps the existing same-origin development setup.
-    const serverUrl = process.env.NEXT_PUBLIC_SOCKET_URL?.trim();
-    socket = io(serverUrl || undefined, {
+    // Prefer an explicit deployment setting. The production fallback keeps the
+    // hosted demo working even if Vercel environment-variable access is unavailable.
+    // Local development still uses the same-origin custom server.
+    const configuredUrl = process.env.NEXT_PUBLIC_SOCKET_URL?.trim();
+    const serverUrl = configuredUrl || (
+      process.env.NODE_ENV === "production"
+        ? "https://watch-party-server-m942.onrender.com"
+        : undefined
+    );
+
+    socket = io(serverUrl, {
       autoConnect: false,
       reconnection: true,
       reconnectionAttempts: Infinity,
