@@ -1,0 +1,50 @@
+WATCH PARTY — CLUB REQUIREMENTS UPGRADE
+
+BEFORE REPLACING FILES
+1) Keep your `watch-party - Copy` backup unchanged.
+2) Stop the running dev server with Ctrl+C.
+3) Extract this ZIP into the existing `watch-party` project root (the folder containing `package.json`).
+4) When Windows asks whether to replace matching files, choose “Replace the files in the destination”.
+5) Do not delete `node_modules`, `.next`, or your original project folder. Do not copy any `.env` files into a public upload.
+
+VALIDATE FROM THE PROJECT ROOT
+Run each command separately and wait for it to finish:
+
+  npm.cmd run typecheck
+  npm.cmd test
+  npm.cmd run build
+
+Only after they pass, start the development server:
+
+  npm.cmd run dev
+
+Then open http://localhost:3000 and manually test from one normal browser window and one Incognito window.
+
+WHAT THIS UPGRADE ADDS/CHANGES
+- Typo-tolerant fuzzy search over the local curated movie catalogue, plus genre/category and decade filtering.
+- Shared room playlist: participants can add validated links; the host can load a queued video; an author or host can remove an item.
+- Shared group polls with 2–6 unique options, one active vote per participant, live vote counts, and close controls for the poll creator/host.
+- Manual host transfer to a connected participant, with server-side authorization; automatic transfer also occurs if the host disconnects.
+- Guest fullscreen button without exposing guest YouTube native controls.
+- Pause-request button is hidden for the host, and the server rejects pause votes from the host.
+- Client/server clock offset estimation and a more frequent playback drift correction loop. These improve synchronization but do not guarantee a particular drift on every device/network.
+- Integration tests exercise room creation/join, playback, playlist, polls, host transfer, 10 connected Socket.IO clients, and a localhost control-propagation smoke benchmark.
+- `TESTING-AND-REQUIREMENTS.md` maps features to club requirements and explains test conditions and what still needs a real LAN run.
+
+IMPORTANT VERIFICATION LIMITS
+- Do not call the club's 250 ms p95 target or <=500 ms corrected player drift “proven” from a localhost test alone. Run the documented separate-machine LAN test and record the actual measurements.
+- The realtime integration test prints a localhost performance sample and fails if its p95 exceeds 250 ms; this can vary with machine load. If it fails, share the full test output before changing code.
+- YouTube adaptively chooses video quality independently for each viewer. The app cannot guarantee identical resolution/FPS.
+- Paid streaming subscriptions/DRM permissions do not transfer from the host to guests. Protected subscription pages are not supported or bypassed. Supported inputs are embeddable YouTube links and direct, browser-playable HTTP(S) media URLs such as MP4/WebM.
+- Playlist, poll, and room state is held in memory and resets when the server process restarts; durable persistence/multi-server scaling would be a separate upgrade.
+
+WHAT TO CHECK IN TWO BROWSERS
+1) Create room in the host window and join with the guest link.
+2) Try play/pause/seek several times and observe both players.
+3) Confirm the guest does not see YouTube native controls, and fullscreen can enter/exit.
+4) Confirm the host has no pause-request button, while guests can request a pause.
+5) Send multiple emoji reactions quickly and confirm they stack independently.
+6) Add an item to the playlist as guest, then load it as host.
+7) Create a poll, vote from both windows, change a vote, and close the poll.
+8) Transfer host privileges and confirm controls move to the new host.
+9) Try a late join and reconnect while playback is active.
