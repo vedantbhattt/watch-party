@@ -34,7 +34,6 @@ function waitForSocketConnection(
     const cleanup = () => {
       if (timer !== undefined) window.clearTimeout(timer);
       socket.off("connect", onConnect);
-      socket.off("connect_error", onConnectionError);
     };
 
     const onConnect = () => {
@@ -44,12 +43,9 @@ function waitForSocketConnection(
       resolve();
     };
 
-    // Socket.IO already retries automatically. Keep waiting through individual
-    // connection errors so a sleeping free-tier backend has time to wake up.
-    const onConnectionError = () => undefined;
-
+    // Socket.IO retries automatically, so wait for a successful connection
+    // instead of treating an individual failed attempt as the final failure.
     socket.on("connect", onConnect);
-    socket.on("connect_error", onConnectionError);
     timer = window.setTimeout(() => {
       if (settled) return;
       settled = true;
