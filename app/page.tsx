@@ -29,10 +29,9 @@ function waitForSocketConnection(
 
   return new Promise((resolve, reject) => {
     let settled = false;
-    let timer: number | undefined;
 
     const cleanup = () => {
-      if (timer !== undefined) window.clearTimeout(timer);
+      window.clearTimeout(timer);
       socket.off("connect", onConnect);
     };
 
@@ -43,15 +42,16 @@ function waitForSocketConnection(
       resolve();
     };
 
-    // Socket.IO retries automatically, so wait for a successful connection
-    // instead of treating an individual failed attempt as the final failure.
-    socket.on("connect", onConnect);
-    timer = window.setTimeout(() => {
+    const timer = window.setTimeout(() => {
       if (settled) return;
       settled = true;
       cleanup();
       reject(new Error("The room server did not connect before the deadline."));
     }, timeoutMs);
+
+    // Socket.IO retries automatically, so wait for a successful connection
+    // instead of treating an individual failed attempt as the final failure.
+    socket.on("connect", onConnect);
 
     if (!socket.connected) socket.connect();
     if (socket.connected) onConnect();
@@ -234,7 +234,7 @@ export default function Home() {
               <input id="display-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={24} className="mt-2 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none transition placeholder:text-zinc-600 focus:border-violet-400 focus:ring-2 focus:ring-violet-500/20" placeholder="Your name" />
               <form onSubmit={(e) => { e.preventDefault(); joinRoom(); }} className="mt-3 flex gap-2"><label htmlFor="join-code" className="sr-only">Room code</label><input id="join-code" value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))} maxLength={6} autoComplete="off" className="min-w-0 flex-1 rounded-xl border border-white/10 bg-black/30 px-4 py-3 font-mono uppercase tracking-[0.2em] outline-none placeholder:font-sans placeholder:tracking-normal placeholder:text-zinc-600 focus:border-violet-400 focus:ring-2 focus:ring-violet-500/20" placeholder="ROOM CODE" /><button type="submit" disabled={busy} className="rounded-xl bg-white px-5 py-3 font-bold text-black transition hover:bg-violet-100 disabled:opacity-50">Join</button></form>
               {error && <p role="alert" className="mt-3 rounded-lg border border-rose-400/20 bg-rose-400/5 px-3 py-2 text-sm text-rose-200">{error}</p>}
-              {busy && connectionStatus && <p role="status" aria-live="polite" className="mt-3 rounded-xl border border-violet-300/15 bg-violet-400/[0.06] px-3 py-3 text-sm text-violet-100"><span className="inline-flex items-center gap-2"><span aria-hidden="true" className="h-2 w-2 animate-pulse rounded-full bg-violet-300" />{connectionStatus}</span>{connectionStatus === "Connecting to room server…" && <span className="mt-1 block pl-4 text-xs leading-5 text-zinc-400">If the server has been idle, its first connection can take up to about a minute. Keep this page open; you won't need to click again.</span>}</p>}
+              {busy && connectionStatus && <p role="status" aria-live="polite" className="mt-3 rounded-xl border border-violet-300/15 bg-violet-400/[0.06] px-3 py-3 text-sm text-violet-100"><span className="inline-flex items-center gap-2"><span aria-hidden="true" className="h-2 w-2 animate-pulse rounded-full bg-violet-300" />{connectionStatus}</span>{connectionStatus === "Connecting to room server…" && <span className="mt-1 block pl-4 text-xs leading-5 text-zinc-400">If the server has been idle, its first connection can take up to about a minute. Keep this page open; you won&apos;t need to click again.</span>}</p>}
             </div>
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs text-zinc-500"><span>◉ Real-time rooms</span><span>◉ Live chat</span><span>◉ Shared playback demo</span></div>
           </div>
