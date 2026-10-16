@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Watch Party movie poster fallback</title>
+  <desc id="desc">A cinematic violet gradient with a glowing play symbol.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#261345"/><stop offset=".52" stop-color="#0d1020"/><stop offset="1" stop-color="#05060b"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#a78bfa" stop-opacity=".6"/><stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="800" height="1200" fill="url(#bg)"/>
+  <circle cx="400" cy="475" r="340" fill="url(#glow)"/>
+  <g stroke="#c4b5fd" stroke-opacity=".18" fill="none"><circle cx="400" cy="475" r="215"/><circle cx="400" cy="475" r="270"/><path d="M0 820 800 440M0 1000 800 620M0 640 800 1020"/></g>
+  <path d="M352 365 352 585 520 475Z" fill="#c4b5fd" fill-opacity=".9"/>
+  <text x="400" y="920" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="42" letter-spacing="8" fill="#c4b5fd">WATCH PARTY</text>
+  <text x="400" y="975" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="21" letter-spacing="4" fill="#e4e4e7">TONIGHT, TOGETHER</text>
+</svg>
