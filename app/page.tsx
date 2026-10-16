@@ -155,9 +155,9 @@ export default function Home() {
                   {featuredMovies.map((movie, index) => <button key={movie.title} type="button" aria-label={`Feature ${movie.title}`} aria-pressed={featuredIndex === index} onClick={() => setFeaturedIndex(index)} className={`h-1.5 rounded-full transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 ${featuredIndex === index ? "w-6 bg-violet-300" : "w-1.5 bg-white/45 hover:bg-white/90"}`} />)}
                 </div>
                 <div className="absolute bottom-6 left-5 right-5 sm:left-7 sm:right-7"><p className="text-xs font-bold tracking-[0.18em] text-violet-300">THE MOVIE NIGHT STARTS HERE</p><h2 className="mt-2 text-4xl font-black sm:text-5xl">{featuredMovie.title}</h2><p className="mt-2 max-w-sm text-sm leading-6 text-zinc-300">{featuredMovie.description}</p><button disabled={busy} onClick={() => createRoom(featuredMovie.title)} className="mt-5 rounded-xl bg-violet-600 px-5 py-3 text-sm font-bold shadow-lg shadow-violet-950/25 transition hover:-translate-y-0.5 hover:bg-violet-500 disabled:opacity-50">Start this movie night ↗</button></div>
+                <div className="glass-float absolute bottom-5 right-5 z-10 hidden rounded-2xl border border-white/15 bg-[#171821]/75 px-4 py-3 shadow-2xl shadow-violet-950/30 backdrop-blur-2xl sm:block"><p className="text-[10px] font-bold uppercase tracking-[0.15em] text-violet-200/65">A little thought</p><p className="mt-1 text-sm font-semibold">Together, even apart <span className="text-violet-300">✦</span></p></div>
               </div>
             </div>
-            <div className="glass-float absolute -bottom-5 right-3 z-10 rounded-2xl border border-white/15 bg-[#171821]/75 px-4 py-3 shadow-2xl shadow-violet-950/30 backdrop-blur-2xl sm:right-7"><p className="text-[10px] font-bold uppercase tracking-[0.15em] text-violet-200/65">A little thought</p><p className="mt-1 text-sm font-semibold">Together, even apart <span className="text-violet-300">✦</span></p></div>
           </div>
         </div>
       </section>
